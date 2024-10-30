@@ -1,0 +1,16 @@
+// Trigger 2: This trigger automatically assigns a consultant to a new student based on availability.
+
+trigger AssignConsultantTrigger on Student__c (before insert) {
+    // Query available consultants
+    List<Consultant__c> availableConsultants = [
+        SELECT Id FROM Consultant_c WHERE Status_c = 'Available' LIMIT 1
+    ];
+    
+    for (Student__c student : Trigger.new) {
+        if (!availableConsultants.isEmpty()) {
+            student.Consultant__c = availableConsultants[0].Id;
+        } else {
+            student.addError('No consultants are currently available. Please try again later.');
+        }
+    }
+}
