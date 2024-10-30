@@ -1,0 +1,27 @@
+// Trigger 1: Checks if a new Contact record with the same Email already exists. If so, it throws an error to prevent duplicates.
+
+trigger ContactTrigger on Contact (before insert) {
+    Set<String> emails = new Set<String>();
+    for (Contact c : Trigger.new) {
+        if (c.Email != null) {
+            emails.add(c.Email);
+        }
+    }
+
+    if (!emails.isEmpty()) {
+        List<Contact> existingContacts = [
+            SELECT Id, Email FROM Contact WHERE Email IN :emails
+        ];
+
+        Map<String, Contact> emailToContactMap = new Map<String, Contact>();
+        for (Contact existing : existingContacts) {
+            emailToContactMap.put(existing.Email, existing);
+        }
+
+        for (Contact c : Trigger.new) {
+            if (c.Email != null && emailToContactMap.containsKey(c.Email)) {
+                c.addError('A contact with this email already exists.');
+            }
+        }
+    }
+}
