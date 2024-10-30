@@ -1,1 +1,1 @@
-![Salesforce Project demonstration Video Link]([https://img.shields.io/badge/Salesforce-00A1E0?style=for-the-badge&logo=Salesforce&logoColor=white](https://drive.google.com/file/d/1czxz-vBE0yla1GREn3aiu47rjeGjaAPW/view?usp=sharing))
+![Salesforce Project demonstration Video Link](https://drive.google.com/file/d/1czxz-vBE0yla1GREn3aiu47rjeGjaAPW/view?usp=sharing)
